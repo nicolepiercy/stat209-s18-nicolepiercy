@@ -4,7 +4,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
 library(dplyr)
 library(readr)
 library(ggplot2)
@@ -15,7 +17,7 @@ The data displays the class's favorite places to eat. The data also includes fav
 
 
 ```{r}
-class <- read_csv("C:\\Users\\np8rk\\Desktop\\fav_02.csv")
+class <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-nicolepiercy/master/fav_restaurants.csv")
 
 ```
 
