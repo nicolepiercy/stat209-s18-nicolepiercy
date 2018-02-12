@@ -1,0 +1,86 @@
+---
+title: "Observations of Student Groups in Tyler Haynes Commons"
+author: "Nicole Piercy"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+knitr::opts_chunk$set(fig.height = 5)
+knitr::opts_chunk$set(fig.width = 8.5)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+
+
+## Overview
+
+Over the span of three days, around 11:45am-12:45pm I observed groups of people walking through the Tyler Haynes Commons. I recorded how many people were walking in a group together as well as how many males and females made up each group. I also recorded whether people on the group were on their phones or not and whether or not they stopped at the tables in the commons. I was interested to see the patterns that exist for groups walking through commons and whether they stop at the tables or not. Personally, I will look at my phone to avoid talking to people who are tabling and I wanted to see if I would observe a similar pattern. 
+
+## Data dictionary
+
+Here is a data dictionary for the commons_observations data set:
+
+- **group_number**: a numerical variable indicating the chronological order in which the groups were observed from 1 to 75. 
+- **group_size**: a numerical variable indicating how many people make up each group.
+- **males**: a numerical variable indicating how many males are in the group. 
+- **females**: a numerical variable indicating how many females are in the group. 
+- **cell_phone**: a categorical variable describing whether group members were on their phones or not. This includes looking at their phones, not just talking on the phone. Possible options are: "yes" or "no". 
+- **stop_at_table**: a categorical variable the describes whether members of the group stopped at the tables in the commons or not. Possible options are: "yes" or "no".
+
+
+```{r}
+commons_observations <- read_csv("https://raw.githubusercontent.com/urstats/stat209-s18-nicolepiercy/master/commons_observations.csv")
+commons_observations
+```
+
+## Exploratory Analysis
+
+  Out of the 75 total groups observed, a majority of the groups were made up of only 1 person as graph 1 displays. and as graph 2 displays, a majority of the groups did not stop at the tables. Since most of the groups were small and did not stop at the tables, I wanted to explore why the smaller groups (of one person) were less likely to stop at the tables. An interesting relationship within this data is the relationship between the group size, whether or not people were on their phones, and if those groups stopped at the tables or not. A further examination of graphs 3 and 4 will describe more of this relationship. 
+  
+```{r, echo=FALSE}
+ggplot(commons_observations, aes(group_number, group_size)) +
+  geom_col(aes(fill = males)) +
+  ggtitle("graph 1: each group's size")
+```
+
+```{r, echo=FALSE}
+ggplot(commons_observations, aes(group_number, stop_at_table)) +
+  geom_col(aes(fill = stop_at_table)) +
+  ggtitle("graph 2: group numbers that stopped at tables or not")
+```
+
+
+```{r, echo=FALSE}
+ggplot(commons_observations, aes(stop_at_table)) +
+  geom_bar(aes(fill = cell_phone)) +
+  ylab("number of groups") +
+  ggtitle("graph 3: portion of groups that were on their phone based on if they stopped at tables")
+```
+  
+  Graph 3 displays the relationship between whether or not groups were on their phones and if they then stopped at the tables or not. From this data, it can be concluded that the majority of people who stopped at the tables, were not on their phones at all. Out of the groups that did not stop at the tables, a larger chunk of the groups were in fact on their cell phones, as depicted in the blue box. This graph also further supports that out of the 75 groups observed, only about 20 groups stopped at the tables. This data shows that if a group is going to stop at a table, they are more likely to do so if they are not on their phone. 
+
+  
+```{r, echo=FALSE}
+ggplot(commons_observations, aes(group_size)) +
+  geom_bar(aes(fill = cell_phone)) +
+  ylab("number of groups") +
+  ggtitle("graph 4: portion of groups on phone based on size")
+```
+  Graph 4 shows the interesting relationship between the size of the group and whether or not the members of the group were on their phones or not. This graph displays that out of the 75 groups, a majority of the groups consisted of only one person. Out of these people, almost 75% were on their cell phones; therefore, based on graph 3, it can be deduced that they were less likely to stop at the tables since they were on their phone. As group size increases, this graph supports that cell-phone usage goes down. This interesting pattern suggests that people walking alone through commons are more likely to be on their phones, and less likely to stop at the tables. 
+
+## Conclusion
+
+  Overall, the research observation and analysis taught me about patterns in human social interactions. Among larger groups (3 or 4), there is less phone usage and more socializing at the tables due to less phone time. As I do myself, individuals walking alone through commons are more likely to not stop at the tables and also more likely to be on their phones. From personal experience, I know I use my phone as a way to avoid stopping at the tables. There is no way to be sure if that was the motivation behind the people who were on their phones but it would be interesting data to add in the future. Other interesting data would be to discover whether the people stopping at the tables knew someone at the table, or was involved with the cause or group running the table. More categorical data would make for more variety within the plots as well.Another interesting pattern to examine would be which times are being observed in the commons. If students are in a hurry to get to class, they may be less likely to stop than if they were on their way to lunch. Each of these options would be interesting patterns to further examine in future observations.  
+
+
+
